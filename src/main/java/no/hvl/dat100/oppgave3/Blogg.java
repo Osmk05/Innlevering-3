@@ -28,40 +28,35 @@ public class Blogg {
 
     public int finnInnlegg(Innlegg innlegg) {
 
-        int index = -1;
-        int i = 0;
-        while (i < nesteledig && index < 0) {
+        for (int i = 0; i < nesteledig; i++) {
             if (innleggtabell[i].erLik(innlegg)) {
-                index = i;
-            } else {
-                i++;
+                return i;
             }
         }
-
-        return index;
+        return -1;
     }
 
     public boolean finnes(Innlegg innlegg) {
-        return (finnInnlegg(innlegg) >= 0);
+        return finnInnlegg(innlegg) >= 0;
     }
 
     public boolean ledigPlass() {
-        return (nesteledig < innleggtabell.length);
+        return nesteledig < innleggtabell.length;
     }
 
     public boolean leggTil(Innlegg innlegg) {
-        boolean lagttil = false;
-        if (!finnes(innlegg) && ledigPlass()){
+
+        if (!finnes(innlegg) && ledigPlass()) {
             innleggtabell[nesteledig] = innlegg;
             nesteledig++;
-            lagttil = true;
+            return true;
         }
-        return lagttil;
+        return false;
     }
 
     public String toString() {
         String s = "";
-        for (int i = 0;  i < nesteledig; i++){
+        for (int i = 0; i < nesteledig; i++) {
             s += innleggtabell[i].toString();
         }
         return nesteledig + "\n" + s;
@@ -70,18 +65,35 @@ public class Blogg {
     // valgfrie oppgaver nedenfor
 
     public void utvid() {
-        throw new UnsupportedOperationException(TODO.method());
+        Innlegg[] nyTabell = new Innlegg[innleggtabell.length * 2];
+        for (int i = 0; i < nesteledig; i++) {
+            nyTabell[i] = innleggtabell[i];
+        }
+        innleggtabell = nyTabell;
     }
 
     public boolean leggTilUtvid(Innlegg innlegg) {
-
-        throw new UnsupportedOperationException(TODO.method());
-
+        if (finnes(innlegg)) {
+            return false;
+        }
+        if (!ledigPlass()) {
+            utvid();
+        }
+        innleggtabell[nesteledig] = innlegg;
+        nesteledig++;
+        return true;
     }
 
     public boolean slett(Innlegg innlegg) {
-
-        throw new UnsupportedOperationException(TODO.method());
+        int pos = finnInnlegg(innlegg);
+        if (pos >= 0) {
+            nesteledig--;
+            innleggtabell[pos] = innleggtabell[nesteledig];
+            innleggtabell[nesteledig] = null;
+            return true;
+        } else {
+            return false;
+        }
     }
 
     public int[] search(String keyword) {

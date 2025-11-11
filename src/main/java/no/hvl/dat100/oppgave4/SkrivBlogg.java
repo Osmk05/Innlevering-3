@@ -8,10 +8,10 @@ import no.hvl.dat100.oppgave3.*;
 
 public class SkrivBlogg {
 
-	public static boolean skriv(Blogg samling, String mappe, String filnavn) {
+    public static boolean skriv(Blogg samling, String mappe, String filnavn) {
 
         boolean skrevet = false;
-        
+
         try {
             PrintWriter skriver = new PrintWriter(mappe + filnavn);
 
@@ -21,13 +21,12 @@ public class SkrivBlogg {
 
             skriver.close();
 
-        }
-        catch (FileNotFoundException e){
+        } catch (FileNotFoundException e) {
             System.out.println("kunne ikke lokalisere fil" + mappe + filnavn + e.getMessage());
 
             skrevet = false;
         }
 
         return skrevet;
-	}
+    }
 }

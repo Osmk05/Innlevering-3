@@ -29,11 +29,11 @@ public class Bilde extends Tekst {
     public String toString() {
 
         return "BILDE" + "\n" +
-                super.getId() + "\n" +
-                super.getBruker() + "\n" +
-                super.getDato() + "\n" +
-                super.getLikes() + "\n" +
-                super.getTekst() + "\n" +
+                getId() + "\n" +
+                getBruker() + "\n" +
+                getDato() + "\n" +
+                getLikes() + "\n" +
+                getTekst() + "\n" +
                 url + "\n";
     }
 
